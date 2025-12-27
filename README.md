@@ -1,15 +1,16 @@
-# K-SAK: Kali Swiss Army Knife CLI Tool
+# 🛠️ K-SAK v2.0: Kali Swiss Army Knife CLI Tool
 
-K-SAK is a versatile, multi-purpose command-line interface tool designed for Kali Linux (and other security-focused environments). It centralizes several essential reconnaissance and security modules into a single, easy-to-use application.
+K-SAK is a professional-grade, multi-threaded security reconnaissance toolkit designed for Kali Linux. It centralizes advanced scanning, enumeration, and intelligence gathering modules into a single, high-performance CLI application.
 
 ![Usage Screenshot](assets/usage_screenshot.png)
 
-## 🚀 Features
+## 🚀 New in v2.0
 
-- **Network Scanner**: Fast port scanning to identify open services on a target.
-- **Subdomain Enumerator**: Discover subdomains for a given domain using a customizable wordlist.
-- **Hash Identifier**: Instantly identify common hashing algorithms (MD5, SHA-1, SHA-256, etc.) based on their signature.
-- **IP Informer**: Retrieve geolocation, ISP, and organizational data for any IP address.
+- **⚡ Atomic Speed**: Full multi-threading for all scanning and enumeration tasks.
+- **💎 Rich UI**: Beautiful terminal interface with tables, color themes, and progress feedback.
+- **🔍 Advanced Recon**: Integrated DNS discovery and WAF detection.
+- **📂 DirHunter**: High-speed directory and file bruteforcing.
+- **📄 Reporting**: Export results to structured JSON for professional analysis.
 
 ## 🛠️ Installation
 
@@ -25,53 +26,59 @@ K-SAK is a versatile, multi-purpose command-line interface tool designed for Kal
    pip install -r requirements.txt
    ```
 
-## 📖 Usage
+## 📖 Modules & Usage
 
-Run the tool using `python main.py` followed by the desired command.
+### 1. 🛡️ Port Scan (Threaded)
 
-### 1. Port Scan
-
-Scan a target for open ports (default ports: 21, 22, 80, 443, 3306, 8080).
+Scans target ports and attempts to grab service banners.
 
 ```bash
-python main.py scan 127.0.0.1
+python main.py scan google.com -p 80 443 8080 -t 50
 ```
 
-Specify custom ports:
+### 2. 🌐 Subdomain Enumeration
 
-```bash
-python main.py scan google.com -p 80 443 8080
-```
-
-### 2. Hash Identification
-
-Identify the algorithm used for a specific hash string.
-
-```bash
-python main.py hash 5d41402abc4b2a76b9719d911017c592
-```
-
-### 3. Subdomain Enumeration
-
-Find subdomains using a wordlist.
+Fast discovery of subdomains using a multi-threaded resolver.
 
 ```bash
 python main.py sub example.com -w www mail dev
 ```
 
-### 4. IP Information
+### 3. 📂 DirHunter (Directory Bruteforce)
 
-Get detailed info about an IP address.
+Identify hidden files and directories on a web server.
 
 ```bash
-python main.py ip 8.8.8.8
+python main.py dir http://example.com/ -t 30
 ```
+
+### 4. 🛰️ Service Recon (DNS & WAF)
+
+Analyze DNS records and detect Web Application Firewalls.
+
+```bash
+python main.py recon example.com --dns --waf
+```
+
+### 5. 🔑 Hash Identification
+
+Instantly identify the algorithm used for a given hash.
+
+```bash
+python main.py hash 5d41402abc4b2a76b9719d911017c592
+```
+
+## ⚙️ Global Options
+
+- `-t, --threads`: Set number of concurrent threads (default: 20).
+- `-o, --output`: Save results to a timestamped JSON report.
 
 ## 📂 Project Structure
 
-- `main.py`: Main entry point and CLI logic.
-- `modules/`: Contains core functionality for scanning, hashing, and enumeration.
-- `requirements.txt`: Python package dependencies.
+- `main.py`: Entry point and module orchestration.
+- `modules/`: Core security modules (scanner, dirbrute, recon, etc.).
+- `utils/`: UI theme and reporting utilities.
+- `assets/`: Project media and screenshots.
 
 ## ⚠️ Disclaimer
 
@@ -80,3 +87,4 @@ This tool is for educational and ethical testing purposes only. Usage of K-SAK f
 ---
 
 Developed by [p0is0n3r404](https://github.com/p0is0n3r404)
+v2.0 Stable Release

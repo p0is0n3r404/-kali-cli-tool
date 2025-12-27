@@ -1,15 +1,23 @@
-class Colors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.theme import Theme
+from rich.text import Text
+from rich.progress import Progress, SpinnerColumn, TextColumn, BarColumn, TaskProgressColumn
 
-BANNER = rf"""{Colors.OKCYAN}
+# Custom theme for K-SAK
+custom_theme = Theme({
+    "info": "cyan",
+    "warning": "yellow",
+    "danger": "bold red",
+    "success": "bold green",
+    "header": "bold magenta",
+    "banner": "bold bright_cyan",
+})
+
+console = Console(theme=custom_theme)
+
+BANNER_TEXT = r"""
  /$$   /$$        /$$$$$$   /$$$$$$  /$$   /$$
 | $$  /$$/       /$$__  $$ /$$__  $$| $$  /$$/
 | $$ /$$/       | $$  \__/| $$  \ $$| $$ /$$/ 
@@ -18,10 +26,29 @@ BANNER = rf"""{Colors.OKCYAN}
 | $$\  $$        /$$  \ $$| $$  | $$| $$\  $$ 
 | $$ \  $$      |  $$$$$$/| $$  | $$| $$ \  $$
 |__/  \__/       \______/ |__/  |__/|__/  \__/
-                                                                                
-    {Colors.OKGREEN}Kali Swiss Army Knife (K-SAK){Colors.ENDC}
-    {Colors.BOLD}Created by p0is0n3r404{Colors.ENDC}
 """
 
 def print_banner():
-    print(BANNER)
+    """Prints the professional K-SAK banner."""
+    console.print(Panel(
+        Text(BANNER_TEXT, style="banner"),
+        subtitle="[bold green]v2.0 - Kali Swiss Army Knife[/bold green]",
+        title="[bold yellow]Created by p0is0n3r404[/bold yellow]",
+        border_style="magenta",
+        padding=(1, 1)
+    ))
+
+def print_info(message):
+    console.print(f"[info]\[*][/info] {message}")
+
+def print_success(message):
+    console.print(f"[success]\[+][/success] {message}")
+
+def print_warning(message):
+    console.print(f"[warning]\[!][/warning] {message}")
+
+def print_error(message):
+    console.print(f"[danger]\[-][/danger] {message}")
+
+def create_table(title):
+    return Table(title=title, header_style="header", border_style="magenta")
